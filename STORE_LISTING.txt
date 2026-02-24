@@ -1,0 +1,191 @@
+========================================
+CHROME WEB STORE LISTING CONTENT
+========================================
+
+Copy and paste these sections into the Chrome Web Store Developer Dashboard.
+
+========================================
+1. STORE LISTING INFORMATION
+========================================
+
+NAME:
+Magnet Link Grabber
+
+SUMMARY (max 132 characters):
+Extract and copy all magnet links from any webpage with one click. Automatically removes duplicates.
+
+DESCRIPTION:
+🧲 Magnet Link Grabber - Extract and Copy Magnet Links Instantly
+
+Magnet Link Grabber is a powerful Chrome extension that helps you quickly extract all magnet links from any webpage. Perfect for torrent users who need to collect multiple magnet links efficiently.
+
+✨ Features:
+• Automatically scans the current page for all magnet links
+• Displays links in a clean, organized list with torrent names
+• Select individual links or select all at once
+• One-click copy to clipboard
+• Automatic duplicate removal (based on torrent hash)
+• Shows torrent names when available
+• Works on any website
+
+🎯 How to Use:
+1. Navigate to any webpage containing magnet links
+2. Click the extension icon in your toolbar
+3. Review the found magnet links
+4. Select the links you want
+5. Click "Copy Selected Links" to copy them to your clipboard
+
+🔒 Privacy:
+• No data collection
+• No external servers
+• All processing happens locally in your browser
+• No tracking or analytics
+• No user data transmitted
+
+Perfect for:
+• Torrent site users
+• Content collectors
+• Anyone who needs to extract multiple magnet links quickly
+
+Install now and start grabbing magnet links faster than ever!
+
+CATEGORY:
+Productivity
+
+LANGUAGE:
+English (United States)
+
+========================================
+2. PERMISSION JUSTIFICATIONS
+========================================
+
+ACTIVE TAB JUSTIFICATION (1000 characters max):
+The extension requires "activeTab" permission to access the content of the currently active tab when the user clicks the extension icon. This permission allows the extension to scan the page's HTML content for magnet links. The extension only accesses the tab when the user explicitly activates it by clicking the extension icon, ensuring user control and privacy. No data is collected or transmitted - all processing happens locally in the browser. This permission is essential for the extension's single purpose: extracting magnet links from web pages.
+
+SCRIPTING JUSTIFICATION (1000 characters max):
+The "scripting" permission is required to inject the content script (content.js) into web pages when needed. This allows the extension to scan the page's HTML source code for magnet links that may be embedded in the page content, not just in anchor tags. The content script runs only when the user clicks the extension icon, and it communicates with the popup to return the found magnet links. This permission is necessary because some magnet links may be present in the page source as plain text or in non-anchor elements, and the extension needs to find all instances. All processing is done locally - no external scripts or remote code are used.
+
+HOST PERMISSION JUSTIFICATION (1000 characters max):
+The extension uses "<all_urls>" in the content_scripts field to allow scanning for magnet links on any website the user visits. This is necessary because magnet links can appear on any website - there is no way to predict which sites users will visit that contain magnet links. The extension does not collect, store, or transmit any data. It only scans the page's HTML content locally when the user clicks the extension icon, extracts magnet links, and displays them in the popup. The extension has a single, clear purpose: to extract magnet links from web pages, and this requires the ability to scan any page the user chooses to visit. No data leaves the user's browser, and no external servers are contacted.
+
+REMOTE CODE:
+No, I am not using Remote code
+
+REMOTE CODE JUSTIFICATION:
+(Leave blank - you selected "No")
+
+========================================
+3. DATA USAGE DISCLOSURE
+========================================
+
+WHAT USER DATA DO YOU PLAN TO COLLECT?
+☐ Personally identifiable information
+☐ Health information
+☐ Financial and payment information
+☐ Authentication information
+☐ Personal communications
+☐ Location
+☐ Web history
+☐ User activity
+☐ Website content
+
+(Leave ALL unchecked - extension does not collect any data)
+
+CERTIFICATIONS (Check all three):
+☑ I do not sell or transfer user data to third parties, outside of the approved use cases
+☑ I do not use or transfer user data for purposes that are unrelated to my item's single purpose
+☑ I do not use or transfer user data to determine creditworthiness or for lending purposes
+
+PRIVACY POLICY URL:
+If the form requires a privacy policy URL, you have two options:
+
+Option 1: Host the privacy-policy.html file I created
+- Upload privacy-policy.html to a free hosting service (GitHub Pages, Netlify, etc.)
+- Enter the URL in the field
+
+Option 2: If the field is optional and you don't collect data
+- Some extensions that don't collect data can leave this blank
+- Try submitting without a URL first
+- If rejected, you'll need to host the privacy policy
+
+Quick hosting options:
+- GitHub Pages (free): Create a repo, upload the HTML file, enable Pages
+- Netlify Drop (free): Drag and drop the HTML file
+- Google Sites (free): Create a simple site with the privacy policy
+
+========================================
+4. PRIVACY PRACTICES
+========================================
+
+SINGLE PURPOSE:
+Yes, my extension has a single purpose
+
+DATA COLLECTION:
+☐ The extension collects user data
+☑ The extension does NOT collect user data
+
+DATA TRANSMISSION:
+☐ The extension transmits user data
+☑ The extension does NOT transmit user data
+
+ANALYTICS:
+☐ The extension uses analytics
+☑ The extension does NOT use analytics
+
+========================================
+5. DISTRIBUTION
+========================================
+
+VISIBILITY:
+☐ Public (recommended for production)
+☐ Unlisted (for testing - only people with link can install)
+
+REGIONS:
+Select: All regions (or specific regions if preferred)
+
+PRICING:
+Free
+
+========================================
+6. ASSETS TO UPLOAD
+========================================
+
+SCREENSHOTS:
+- Upload: store_assets/screenshot.png
+- Recommended size: 1280x800px or 640x400px
+- You can upload up to 5 screenshots
+
+STORE ICON:
+- Upload: icons/icon128.png
+- Size: 128x128px
+
+PROMOTIONAL IMAGES (Optional):
+- Small promo tile: store_assets/promo_small.png (440x280px)
+
+========================================
+7. SUBMISSION CHECKLIST
+========================================
+
+Before clicking "Submit for Review", verify:
+
+☑ All required fields are filled
+☑ Permission justifications are complete
+☑ Screenshot is uploaded
+☑ Store icon is uploaded
+☑ Description is clear and accurate
+☑ Category is selected
+☑ Privacy practices are correctly marked
+☑ No validation errors shown
+☑ Extension zip file is uploaded
+
+========================================
+NOTES:
+========================================
+
+- The extension processes all data locally - no external servers
+- No user data is collected or transmitted
+- The extension only activates when the user clicks the icon
+- All magnet link extraction happens in the user's browser
+- Duplicate removal is based on torrent hash (btih)
+
+Good luck with your submission! 🚀
