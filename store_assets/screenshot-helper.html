@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chrome Store Screenshot - Magnet Link Grabber</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #0d1117;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .frame {
+      width: 1280px;
+      height: 800px;
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+    }
+    /* Browser chrome mockup */
+    .browser-bar {
+      height: 36px;
+      background: #e8e8ed;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 8px;
+    }
+    .browser-dots { display: flex; gap: 6px; }
+    .browser-dots span {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: #ddd;
+    }
+    .browser-dots span:nth-child(1) { background: #ff5f57; }
+    .browser-dots span:nth-child(2) { background: #febc2e; }
+    .browser-dots span:nth-child(3) { background: #28c840; }
+    .url-bar {
+      flex: 1;
+      max-width: 600px;
+      height: 24px;
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      margin-left: 40px;
+      padding: 0 12px;
+      font-size: 12px;
+      color: #6b7280;
+      display: flex;
+      align-items: center;
+    }
+    .url-bar::before {
+      content: "https://example-torrent-site.com/search?q=linux";
+    }
+    /* Main content area */
+    .main {
+      display: flex;
+      height: calc(800px - 36px);
+    }
+    .page-preview {
+      flex: 1;
+      background: #f6f8fa;
+      padding: 24px;
+      font-size: 13px;
+      color: #24292f;
+    }
+    .page-preview h2 {
+      font-size: 18px;
+      margin-bottom: 16px;
+      color: #0969da;
+    }
+    .page-preview .result {
+      background: #fff;
+      border: 1px solid #d0d7de;
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .page-preview .result .name { font-weight: 500; }
+    .page-preview .result .magnet {
+      font-size: 11px;
+      color: #656d76;
+      font-family: monospace;
+    }
+    /* Extension popup - EXACT copy of actual popup UI */
+    .popup-wrapper {
+      position: relative;
+      width: 420px;
+      flex-shrink: 0;
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-start;
+      padding: 16px;
+    }
+    .popup {
+      width: 420px;
+      background: #1e1e2e;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      overflow: hidden;
+      font-size: 13px;
+      color: #e0e0e0;
+    }
+    .popup .container {
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 500px;
+    }
+    .popup header { text-align: center; }
+    .popup header h1 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #cba6f7;
+    }
+    .popup .subtitle {
+      font-size: 11px;
+      color: #6c7086;
+      margin-top: 2px;
+    }
+    .popup .control-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .popup .badge {
+      background: #313244;
+      color: #cba6f7;
+      font-weight: 600;
+      font-size: 12px;
+      padding: 3px 10px;
+      border-radius: 12px;
+    }
+    .popup .btn-group { display: flex; gap: 6px; }
+    .popup .btn {
+      background: #313244;
+      color: #cdd6f4;
+      border: 1px solid #45475a;
+      border-radius: 6px;
+      padding: 3px 8px;
+      font-size: 11px;
+      cursor: default;
+    }
+    .popup .btn-primary {
+      background: #cba6f7;
+      color: #1e1e2e;
+      border-color: #cba6f7;
+      font-weight: 600;
+      width: 100%;
+      padding: 8px 0;
+      font-size: 13px;
+      text-align: center;
+    }
+    .popup .magnet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-height: 280px;
+      overflow-y: auto;
+    }
+    .popup .magnet-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      background: #181825;
+      border: 1px solid #313244;
+      border-radius: 8px;
+      padding: 8px 10px;
+    }
+    .popup .magnet-item input {
+      accent-color: #cba6f7;
+      margin-top: 2px;
+      width: 15px;
+      height: 15px;
+    }
+    .popup .magnet-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+      flex: 1;
+    }
+    .popup .magnet-name {
+      font-weight: 600;
+      font-size: 12px;
+      color: #cdd6f4;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .popup .magnet-hash {
+      font-size: 10px;
+      color: #6c7086;
+      font-family: monospace;
+    }
+    .instructions {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1e1e2e;
+      color: #cdd6f4;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 13px;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <div class="browser-bar">
+      <div class="browser-dots">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="url-bar"></div>
+    </div>
+    <div class="main">
+      <div class="page-preview">
+        <h2>Search Results - magnet links on page</h2>
+        <div class="result">
+          <span class="name">Ubuntu 24.04 LTS Desktop</span>
+          <span class="magnet">magnet:?xt=urn:btih:...</span>
+        </div>
+        <div class="result">
+          <span class="name">Debian 12 Bookworm ISO</span>
+          <span class="magnet">magnet:?xt=urn:btih:...</span>
+        </div>
+        <div class="result">
+          <span class="name">Linux Mint 21.3</span>
+          <span class="magnet">magnet:?xt=urn:btih:...</span>
+        </div>
+        <p style="margin-top: 16px; color: #656d76;">← Extension scans this page and extracts all magnet links</p>
+      </div>
+      <div class="popup-wrapper">
+        <div class="popup">
+          <div class="container">
+            <header>
+              <h1>🧲 Magnet Grabber</h1>
+              <p class="subtitle">Extract magnet links from this page</p>
+            </header>
+            <div class="control-row">
+              <span class="badge">3 / 3 selected</span>
+              <div class="btn-group">
+                <button class="btn">Select All</button>
+                <button class="btn">Deselect All</button>
+              </div>
+            </div>
+            <button class="btn-primary">📋 Copy Selected Links</button>
+            <ul class="magnet-list">
+              <li class="magnet-item">
+                <input type="checkbox" checked>
+                <div class="magnet-info">
+                  <span class="magnet-name">Ubuntu 24.04 LTS Desktop</span>
+                  <span class="magnet-hash">a1b2c3d4e5f6...</span>
+                </div>
+              </li>
+              <li class="magnet-item">
+                <input type="checkbox" checked>
+                <div class="magnet-info">
+                  <span class="magnet-name">Debian 12 Bookworm ISO</span>
+                  <span class="magnet-hash">f6e5d4c3b2a1...</span>
+                </div>
+              </li>
+              <li class="magnet-item">
+                <input type="checkbox" checked>
+                <div class="magnet-info">
+                  <span class="magnet-name">Linux Mint 21.3</span>
+                  <span class="magnet-hash">1234567890ab...</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="instructions">
+    Screenshot this frame at 1280×800 for Chrome Web Store. Use a screenshot tool or browser DevTools.
+  </div>
+</body>
+</html>

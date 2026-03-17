@@ -5,6 +5,7 @@
    * Scan the page for magnet links:
    *  1. <a href="magnet:..."> elements
    *  2. Raw magnet:?xt= URIs in the page text / HTML source
+   *  3. Bare 40-char hex SHA1 info hashes → synthesized magnet:?xt=urn:btih:<hash>
    * Returns a deduplicated array of magnet URIs.
    */
   function getMagnetLinks() {
@@ -31,6 +32,25 @@
           magnetSet.add(cleaned);
         }
       });
+    }
+
+    // 3. Scan for bare 40-char hex SHA1 info hashes not already inside a magnet URI.
+    // Word boundaries (\b) prevent matching the first 40 chars of a longer hex string
+    // (e.g. a 64-char SHA256), since the 41st hex char blocks the boundary.
+    const knownHashes = new Set();
+    for (const uri of magnetSet) {
+      const m = uri.match(/urn:btih:([a-f0-9]{40}|[a-z2-7]{32})/i);
+      if (m) knownHashes.add(m[1].toLowerCase());
+    }
+
+    const bareHashRegex = /\b([a-f0-9]{40})\b/gi;
+    let hashMatch;
+    while ((hashMatch = bareHashRegex.exec(bodyHTML)) !== null) {
+      const hash = hashMatch[1].toLowerCase();
+      if (!knownHashes.has(hash)) {
+        knownHashes.add(hash); // prevent duplicates from multiple occurrences of same hash
+        magnetSet.add(`magnet:?xt=urn:btih:${hash}`);
+      }
     }
 
     // Basic deduplication at this level (exact string matches)

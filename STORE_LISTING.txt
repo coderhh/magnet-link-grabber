@@ -147,20 +147,27 @@ PRICING:
 Free
 
 ========================================
-6. ASSETS TO UPLOAD
+6. ASSETS TO UPLOAD (CRITICAL - RELEVANT METADATA)
 ========================================
+
+IMPORTANT: Chrome Web Store rejects extensions when screenshots/promo images
+are "irrelevant to the observed functionality." All media MUST accurately show
+the extension's actual UI and functionality (extracting magnet links).
 
 SCREENSHOTS:
 - Upload: store_assets/screenshot.png
-- Recommended size: 1280x800px or 640x400px
-- You can upload up to 5 screenshots
+- Required size: 1280x800px (or 640x400px minimum)
+- Must show: The extension popup with magnet links list, checkboxes, Copy button
+- Alternative: Open store_assets/screenshot-helper.html in browser, capture
+  the frame at 1280x800 for a pixel-perfect screenshot
 
 STORE ICON:
 - Upload: icons/icon128.png
 - Size: 128x128px
 
-PROMOTIONAL IMAGES (Optional):
+PROMOTIONAL IMAGES:
 - Small promo tile: store_assets/promo_small.png (440x280px)
+- Must show: The extension popup UI, not generic/abstract graphics
 
 ========================================
 7. SUBMISSION CHECKLIST
